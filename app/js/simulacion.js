@@ -25,6 +25,16 @@ wd.addEventListener("click", (e) => {
     tapCell(x, y);
   }
 });
+/* ¿Se ve el local ahora mismo? (pestaña Local abierta y escena dentro de la pantalla).
+ * Si no se ve, la animación va más despacio y no se crean peatones ni coches: ahorra batería. */
+let escenaEnPantalla = true;
+try {
+  new IntersectionObserver((e) => {
+    escenaEnPantalla = e[0].isIntersecting;
+  }).observe(stage);
+} catch (e) {}
+const escenaVisible = () => stage.isConnected && escenaEnPantalla && !document.hidden;
+
 function attach() {
   const sl = document.getElementById("slot");
   if (sl) {
@@ -35,8 +45,19 @@ function attach() {
     fit();
   }
 }
+/* Coloca a un personaje en la escena. Solo toca el DOM si se ha movido y el local está a la vista. */
 function put(p) {
+  if (p._px === p.x && p._py === p.y) return;
+  if (!stage.isConnected) return; // se colocará al volver a la pestaña Local
+  p._px = p.x;
+  p._py = p.y;
   p.el.style.transform = `translate3d(${p.x}px,${p.y}px,0) ${BB}`;
+}
+/* Marca si un personaje camina (activa la animación de las piernas) sin repetir cambios en el DOM */
+function andando(p, si) {
+  if (p._wk === si) return;
+  p._wk = si;
+  p.el.classList.toggle("wk", si);
 }
 function mk(e, sz) {
   const d = document.createElement("div");
@@ -731,7 +752,7 @@ function staff() {
 }
 function tick(p, dt) {
   if (p.wait > 0) {
-    p.el.classList.remove("wk");
+    andando(p, false);
     p.wait -= dt;
     if (p.wait <= 0) {
       const f = p.then;
@@ -741,7 +762,7 @@ function tick(p, dt) {
     return;
   }
   if (p.path.length) {
-    p.el.classList.add("wk");
+    andando(p, true);
     const [tx, ty] = p.path[0],
       dx = tx - p.x,
       dy = ty - p.y,
@@ -760,24 +781,39 @@ function tick(p, dt) {
       p.x += (dx / d) * s;
       p.y += (dy / d) * s;
     }
-  } else p.el.classList.remove("wk");
+  } else andando(p, false);
   put(p);
 }
+/* ===== Bucle principal de animación =====
+ * Fotogramas por segundo según lo que pasa, para no gastar batería:
+ *  - local a la vista y servicio en marcha: los que dé la pantalla (60)
+ *  - local a la vista y cerrado: 30
+ *  - local fuera de la vista: 15 con servicio (la simulación sigue) y 5 sin él */
+let staffT = 0;
 function loop(t) {
+  requestAnimationFrame(loop);
+  const vis = escenaVisible(),
+    minMs = vis ? (busy ? 0 : 32) : busy ? 66 : 200;
+  if (last && t - last < minMs - 2) return;
   const dt = Math.min(0.1, (t - last) / 1000 || 0);
   last = t;
   sp -= dt;
   if (sp <= 0) {
     sp = 2 + Math.random() * 2.5;
-    if (P.filter((p) => p.amb).length < 5) newP();
+    if (vis && P.filter((p) => p.amb).length < 5) newP();
   }
   cr -= dt;
   if (cr <= 0) {
     cr = 5 + Math.random() * 5;
-    car();
+    if (vis) car();
   }
   P.slice().forEach((p) => tick(p, dt));
-  staff();
+  // la plantilla (quién trabaja, en qué puesto) se revisa 4 veces por segundo, no en cada fotograma
+  staffT -= dt;
+  if (staffT <= 0) {
+    staffT = 0.25;
+    staff();
+  }
   WS.forEach((w) => {
     if (w.off) return;
     tick(w, dt);
@@ -872,7 +908,7 @@ function loop(t) {
   });
   K.slice().forEach((c) => {
     c.x += c.dir * c.v * dt;
-    c.el.style.transform = `translate3d(${c.x}px,${c.y}px,0)`;
+    if (vis) c.el.style.transform = `translate3d(${c.x}px,${c.y}px,0)`;
     if (c.x > XR() + 160 || c.x < XL - 160) {
       K.splice(K.indexOf(c), 1);
       c.el.remove();
@@ -880,5 +916,4 @@ function loop(t) {
   });
   const t2 = busy ? "🟢 Abierto" : "🔴 Cerrado";
   if (sign.textContent !== t2) sign.textContent = t2;
-  requestAnimationFrame(loop);
 }

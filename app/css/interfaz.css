@@ -1,0 +1,393 @@
+/* interfaz.css — Aspecto de la interfaz (cabecera, pestañas, botones, ventanas y avisos).
+ * El dibujo del local y de los personajes está en estilos.css. */
+
+:root {
+  --ac-suave: #ffe8d6;
+  --sombra: 0 2px 10px rgba(90, 45, 0, 0.07);
+  --nav-h: 64px;
+  padding-top: 0;
+  padding-bottom: 0;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ac-suave: #4a2c14;
+    --sombra: 0 2px 10px rgba(0, 0, 0, 0.35);
+  }
+}
+:root[data-theme="dark"] {
+  --ac-suave: #4a2c14;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+body {
+  padding: 0 max(12px, env(safe-area-inset-right)) calc(var(--nav-h) + env(safe-area-inset-bottom) + 24px)
+    max(12px, env(safe-area-inset-left));
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.4;
+}
+button,
+input,
+textarea,
+label.s {
+  font: inherit;
+  touch-action: manipulation;
+}
+button {
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+:focus-visible {
+  outline: 3px solid var(--ac);
+  outline-offset: 2px;
+}
+
+/* ---------- Cabecera (fija arriba) ---------- */
+.cab {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin: 0 -12px 12px;
+  padding: calc(env(safe-area-inset-top, 0px) + 6px) 12px 8px;
+  background: var(--bg);
+  box-shadow: 0 6px 12px -10px rgba(0, 0, 0, 0.25);
+}
+.cab-fila {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+}
+.rn {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  text-align: left;
+  font-size: 19px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hbtn {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 6px;
+}
+.hb {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--bd);
+  background: var(--card);
+  color: var(--tx);
+  font-size: 19px;
+  line-height: 1;
+  box-shadow: var(--sombra);
+}
+.globo {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  border-radius: 10px;
+  background: #e03131;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 19px;
+}
+.top {
+  margin-top: 4px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  font-size: 16px;
+}
+.top > div:last-child {
+  text-align: right;
+}
+.top small {
+  font-size: 12px;
+}
+
+/* ---------- Pestañas (barra inferior, cómoda para el pulgar) ---------- */
+.tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 35;
+  margin: 0;
+  gap: 2px;
+  padding: 6px max(6px, env(safe-area-inset-right), calc((100% - 560px) / 2))
+    calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left), calc((100% - 560px) / 2));
+  background: var(--card);
+  border-top: 1px solid var(--bd);
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.07);
+}
+.tabs button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-height: 52px;
+  padding: 4px 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--mut);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.tabs .ti {
+  font-size: 22px;
+  line-height: 1.1;
+}
+.tabs button.on {
+  background: var(--ac-suave);
+  color: var(--ac);
+  border: 0;
+}
+
+/* ---------- Tarjetas y botones ---------- */
+.card {
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: var(--sombra);
+}
+.big {
+  min-height: 54px;
+  border-radius: 16px;
+  box-shadow: 0 3px 0 rgba(120, 40, 0, 0.35);
+}
+.big:disabled {
+  box-shadow: none;
+}
+button.s,
+label.s {
+  min-height: 44px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border-width: 1.5px;
+}
+label.s {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-style: solid;
+  border-color: var(--ac);
+  color: var(--ac);
+  font-weight: 600;
+}
+.chips button {
+  min-height: 40px;
+  padding: 8px 14px;
+}
+.zc button {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 19px;
+}
+.stage {
+  border-radius: 14px;
+}
+.ancho {
+  width: 100%;
+  margin-top: 8px;
+}
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.botones > * {
+  flex: 1 1 auto;
+}
+button.s.rojo {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff;
+}
+.interruptor {
+  min-width: 72px;
+  opacity: 0.6;
+}
+.interruptor.on {
+  background: var(--ac);
+  color: #fff;
+  opacity: 1;
+}
+
+/* ---------- Ventanas ---------- */
+.ov {
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) max(12px, env(safe-area-inset-right))
+    calc(env(safe-area-inset-bottom, 0px) + 12px) max(12px, env(safe-area-inset-left));
+  background: rgba(25, 12, 0, 0.55);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  animation: ov-entra 0.2s ease-out;
+}
+.ov.saliendo {
+  animation: ov-sale 0.16s ease-in forwards;
+}
+@keyframes ov-entra {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes ov-sale {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.box {
+  position: relative;
+  width: min(100%, 420px);
+  max-height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
+  border-radius: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  line-height: 1.45;
+}
+.box.hoja {
+  text-align: left;
+}
+.box h2 {
+  margin: 0 0 10px;
+  font-size: 21px;
+}
+.box h3 {
+  margin: 18px 0 6px;
+  font-size: 16px;
+}
+.box .big + .s,
+.box .big + .big {
+  margin-top: 8px;
+}
+.box textarea {
+  width: 100%;
+  height: 76px;
+  margin-top: 6px;
+  padding: 10px;
+  border: 2px solid var(--bd);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--tx);
+  font-size: 13px;
+}
+/* Botón ✕: se queda visible arriba a la derecha aunque se desplace el contenido */
+.x {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: -6px -6px -34px auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ac);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.x + h2,
+.x + .row,
+.x + div {
+  padding-right: 44px;
+}
+.copia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--bd);
+}
+.card.aviso {
+  margin: 10px 0;
+}
+.card.peligro {
+  margin: 10px 0;
+  border-color: #c0392b;
+}
+.version {
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* ---------- Avisos flotantes ---------- */
+#toasts {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(env(safe-area-inset-top, 0px) + 70px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  pointer-events: none;
+}
+.toast {
+  max-width: 520px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(30, 20, 10, 0.92);
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  animation: toast-entra 0.25s ease-out;
+  transition:
+    opacity 0.4s,
+    transform 0.4s;
+}
+.toast.fuera {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+@keyframes toast-entra {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Quien prefiera menos movimiento (ajuste del móvil) no verá las animaciones de la interfaz */
+@media (prefers-reduced-motion: reduce) {
+  .ov,
+  .ov.saliendo,
+  .toast {
+    animation: none;
+  }
+  button {
+    transition: none;
+  }
+}

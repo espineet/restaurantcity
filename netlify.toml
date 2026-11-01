@@ -1,0 +1,4 @@
+# Netlify publica la carpeta app/ (el juego). No hay que compilar nada.
+[build]
+  publish = "app"
+  command = ""

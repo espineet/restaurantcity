@@ -1,0 +1,7 @@
+# Netlify: que el navegador compruebe siempre si hay versión nueva de estos archivos
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache

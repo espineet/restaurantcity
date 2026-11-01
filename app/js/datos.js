@@ -1,6 +1,5 @@
 /* datos.js — Datos base: ingredientes, nombres, categorías, recetas, imágenes y opciones de decoración. */
 
-const KEY = "restaurante_v1";
 const ING = {
   pepino: ["", 3],
   tomate: ["", 4],

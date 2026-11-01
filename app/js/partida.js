@@ -2,6 +2,8 @@
 
 function resetGo() {
   document.getElementById("rs").style.display = "none";
+  if (!guardadoBloqueado) copiaAntesDeCambio(); // por si fue sin querer: se puede restaurar en Ajustes
+  guardadoBloqueado = false;
   S = fresh();
   try {
     [WS, CKS, BM, P, Q, DM].forEach((l) => {
@@ -254,7 +256,7 @@ function showPass() {
   o.onclick = (e) => {
     if (e.target === o) ppClose();
   };
-  o.innerHTML = `<div class="box" style="max-height:86vh;overflow:auto;text-align:left;width:min(92vw,380px)"><div style="position:sticky;top:-20px;z-index:2;height:0;text-align:right"><button onclick="ppClose()" aria-label="Cerrar" style="position:relative;top:-8px;right:-8px;width:36px;height:36px;border-radius:50%;border:0;background:#e8590c;color:#fff;font-size:20px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)">✕</button></div><h2 style="text-align:center;margin:0 0 4px">🍽️ Pase de plato</h2><p class="mut" style="text-align:center;margin:0 0 8px">Cada 5 niveles, una recompensa. Eres nivel <b>${L}</b>${nx ? ` · próxima: nivel <b>${nx[0]}</b>` : ""}.</p>${ppMsg ? `<div class="card" style="margin:6px 0"><b>${ppMsg}</b></div>` : ""}${PASS.map(
+  o.innerHTML = `<div class="box hoja"><button class="x" onclick="ppClose()" aria-label="Cerrar">✕</button><h2 style="text-align:center;margin:0 0 4px">🍽️ Pase de plato</h2><p class="mut" style="text-align:center;margin:0 0 8px">Cada 5 niveles, una recompensa. Eres nivel <b>${L}</b>${nx ? ` · próxima: nivel <b>${nx[0]}</b>` : ""}.</p>${ppMsg ? `<div class="card" style="margin:6px 0"><b>${ppMsg}</b></div>` : ""}${PASS.map(
     (p) => {
       const ok = passOk(p[0]),
         av = !ok && L >= p[0];

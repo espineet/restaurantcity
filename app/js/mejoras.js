@@ -91,11 +91,13 @@ function cost(t) {
 function maxed(t) {
   return t === "chef" ? S.chef >= Math.min(10, fogN() + pasN()) : S[UP[t][0]] >= UP[t][1];
 }
+/* Aviso flotante que desaparece solo (se apilan si hay varios) */
 function toast(m) {
   const d = document.createElement("div");
+  d.className = "toast";
   d.textContent = m;
-  d.style.cssText =
-    "position:fixed;top:64px;left:50%;transform:translateX(-50%);max-width:90%;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.82);color:#fff;font-size:13px;z-index:60;text-align:center";
-  document.body.appendChild(d);
+  d.onclick = () => d.remove();
+  (document.getElementById("toasts") || document.body).appendChild(d);
+  setTimeout(() => d.classList.add("fuera"), 6000);
   setTimeout(() => d.remove(), 6500);
 }

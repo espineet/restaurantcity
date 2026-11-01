@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi Restaurante</title>
+<meta name="description" content="Juego de gestión de restaurante">
+<meta name="theme-color" content="#e8590c">
+<meta name="color-scheme" content="light dark">
+<!-- PWA / iPhone -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mi Restaurante">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v3.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64-v3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
+<!-- Estilos: estilos.css = dibujo del local; interfaz.css = botones, ventanas y pestañas -->
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/interfaz.css">
+</head>
+<body>
+<header class="cab">
+  <div class="cab-fila"><div class="rn" id="rn" onclick="askName()"></div><div class="hbtn" id="hbtn"></div></div>
+  <div class="top" id="top"></div>
+</header>
+<main id="view"></main>
+<nav class="tabs" id="tabs"></nav>
+<div id="toasts" aria-live="polite"></div>
+<div id="nm" class="ov" style="display:none"><div class="box"><h2>🍽️ ¡Bienvenido!</h2><p>Ponle un nombre a tu restaurante:</p><input id="nmi" maxlength="24" placeholder="Ej.: La Cocina de Ana" onkeydown="if(event.key==='Enter')setName()"><button class="big" onclick="setName()">Abrir mi restaurante</button></div></div>
+<div id="rs" class="ov" style="display:none"><div class="box"><h2>¿Reiniciar la partida?</h2><p>Se borrará todo tu progreso y empezarás de cero.</p><p class="mut">Por si te arrepientes, se guarda una copia automática en ⚙️ Ajustes → Copias automáticas.</p><button class="big" onclick="resetGo()">Sí, reiniciar</button><button class="s ancho" onclick="cerrarVentana('rs')">Cancelar</button></div></div>
+<!-- Código del juego (el orden importa: cada archivo usa lo definido en los anteriores) -->
+<script src="js/datos.js"></script>
+<script src="js/comun.js"></script>
+<script src="js/guardado.js"></script>
+<script src="js/tienda.js"></script>
+<script src="js/personal.js"></script>
+<script src="js/mejoras.js"></script>
+<script src="js/eventos.js"></script>
+<script src="js/servicio.js"></script>
+<script src="js/escena.js"></script>
+<script src="js/muebles.js"></script>
+<script src="js/partida.js"></script>
+<script src="js/cocina.js"></script>
+<script src="js/ciudad.js"></script>
+<script src="js/recetas.js"></script>
+<script src="js/vista.js"></script>
+<script src="js/catalogo.js"></script>
+<script src="js/simulacion.js"></script>
+<script src="js/interfaz.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ajustes.js"></script>
+<script src="js/misiones.js"></script>
+<script src="js/estadisticas.js"></script>
+<script src="js/inicio.js"></script>
+<!-- Service worker: juego sin conexión y actualizaciones automáticas -->
+<script src="js/actualizacion.js"></script>
+</body>
+</html>

@@ -95,16 +95,16 @@ function draw() {
 function draw0() {
   drawTop();
   const T = [
-    ["rest", "🏠<br>Local"],
-    ["menu", "📋<br>Menú"],
-    ["shop", "🛒<br>Tienda"],
-    ["deco", "🎨<br>Catálogo"],
-    ["staff", "👥<br>Plantilla"],
-    ["up", "🔧<br>Mejoras"],
+    ["rest", '<span class="ti">🏠</span>Local'],
+    ["menu", '<span class="ti">📋</span>Menú'],
+    ["shop", '<span class="ti">🛒</span>Tienda'],
+    ["deco", '<span class="ti">🎨</span>Catálogo'],
+    ["staff", '<span class="ti">👥</span>Plantilla'],
+    ["up", '<span class="ti">🔧</span>Mejoras'],
   ];
   document.getElementById("tabs").innerHTML = T.map(
     ([k, l]) =>
-      `<button class="${tab === k ? "on" : ""}" onclick="tab='${k}';note='';if(tab==='up'){candHide.w=1;candHide.c=1}draw()">${l}</button>`,
+      `<button class="${tab === k ? "on" : ""}" onclick="tab='${k}';note='';if(tab==='up'){candHide.w=1;candHide.c=1}draw();scrollTo(0,0)">${l}</button>`,
   ).join("");
   const v = document.getElementById("view");
   if (tab === "rest") {

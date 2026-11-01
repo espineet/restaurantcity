@@ -351,11 +351,7 @@ function msBadge() {
   const b = document.getElementById("msb");
   if (!b) return;
   const n = msClaimable();
-  b.innerHTML =
-    "📜" +
-    (n
-      ? `<span style="position:absolute;top:-4px;right:-4px;background:#e03131;color:#fff;border-radius:9px;min-width:15px;height:15px;font-size:10px;line-height:15px;font-weight:700">${n}</span>`
-      : "");
+  b.innerHTML = "📜" + (n ? `<span class="globo">${n}</span>` : "");
 }
 let msTab = "d";
 function msClaim(sc, i) {
@@ -425,17 +421,7 @@ function showMs() {
         const c = Math.min(r[0], r[1]);
         return `<div class="card" style="margin:6px 0;${ok ? "" : "opacity:.85"}"><div class="row"><b style="flex:1">${a[1]} ${a[2]}</b>${ok ? "✅" : "🔒"}</div><div class="mut sm">${a[3]}</div>${ok ? "" : bar(c, r[1]) + `<div class="mut sm">${c}/${r[1]}</div>`}<div class="mut sm">🪙 ${a[5]}${a[6].length ? " · 🔓 " + a[6].map(([k, x]) => label(k, x)).join(", ") : ""}</div></div>`;
       }).join("");
-  o.innerHTML = `<div class="box" style="text-align:left;max-height:88vh;overflow:auto;width:min(94vw,400px)"><div style="position:sticky;top:-20px;height:0;text-align:right;z-index:2"><button onclick="document.getElementById('ms').style.display='none'" aria-label="Cerrar" style="position:relative;top:-8px;right:-8px;width:36px;height:36px;border-radius:50%;border:0;background:#e8590c;color:#fff;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)">✕</button></div><h2 style="margin:0 0 8px">📜 Misiones y logros</h2><div class="row" style="gap:6px;margin-bottom:6px">${tabs.map(([k, n]) => `<button class="s" style="flex:1;${msTab === k ? "outline:2px solid var(--ac)" : "opacity:.6"}" onclick="msTab='${k}';showMs()">${n}</button>`).join("")}</div>${body}</div>`;
+  o.innerHTML = `<div class="box hoja"><button class="x" onclick="cerrarVentana('ms')" aria-label="Cerrar">✕</button><h2 style="margin:0 0 8px">📜 Misiones y logros</h2><div class="row" style="gap:6px;margin-bottom:6px">${tabs.map(([k, n]) => `<button class="s" style="flex:1;${msTab === k ? "outline:2px solid var(--ac)" : "opacity:.6"}" onclick="msTab='${k}';showMs()">${n}</button>`).join("")}</div>${body}</div>`;
   o.style.display = "flex";
 }
-try {
-  (function () {
-    const b = document.createElement("button");
-    b.id = "msb";
-    b.style.cssText =
-      "position:fixed;top:2px;right:36px;z-index:40;width:28px;height:28px;border-radius:50%;border:1px solid var(--bd);background:var(--card);font-size:14px;cursor:pointer;padding:0;line-height:1";
-    b.onclick = () => showMs();
-    document.body.appendChild(b);
-    b.textContent = "📜";
-  })();
-} catch (e) {}
+botonCabecera("msb", "📜", "Misiones y logros", () => showMs());

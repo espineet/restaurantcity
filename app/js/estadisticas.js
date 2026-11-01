@@ -290,16 +290,7 @@ function showStats() {
     };
     body = `<div class="card" style="margin:6px 0"><b>🏅 Lo más vendido (platos y postres)</b>${top(S.dtot, nm)}</div><div class="card" style="margin:6px 0"><b>🥤 Bebidas más vendidas</b>${top(S.btot, (k) => NAME[k] || k)}</div>`;
   }
-  o.innerHTML = `<div class="box" style="text-align:left;max-height:88vh;overflow:auto;width:min(94vw,420px)"><div style="position:sticky;top:-20px;height:0;text-align:right;z-index:2"><button onclick="document.getElementById('stv').style.display='none'" aria-label="Cerrar" style="position:relative;top:-8px;right:-8px;width:36px;height:36px;border-radius:50%;border:0;background:#e8590c;color:#fff;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)">✕</button></div><h2 style="margin:0 0 8px">📊 Estadísticas</h2><div class="row" style="gap:6px;margin-bottom:6px">${tabs.map(([k, t]) => `<button class="s" style="flex:1;${stTab === k ? "outline:2px solid var(--ac)" : "opacity:.6"}" onclick="stTab='${k}';showStats()">${t}</button>`).join("")}</div>${body}</div>`;
+  o.innerHTML = `<div class="box hoja"><button class="x" onclick="cerrarVentana('stv')" aria-label="Cerrar">✕</button><h2 style="margin:0 0 8px">📊 Estadísticas</h2><div class="row" style="gap:6px;margin-bottom:6px">${tabs.map(([k, t]) => `<button class="s" style="flex:1;${stTab === k ? "outline:2px solid var(--ac)" : "opacity:.6"}" onclick="stTab='${k}';showStats()">${t}</button>`).join("")}</div>${body}</div>`;
   o.style.display = "flex";
 }
-try {
-  (function () {
-    const b = document.createElement("button");
-    b.style.cssText =
-      "position:fixed;top:2px;right:68px;z-index:40;width:28px;height:28px;border-radius:50%;border:1px solid var(--bd);background:var(--card);font-size:14px;cursor:pointer;padding:0;line-height:1";
-    b.textContent = "📊";
-    b.onclick = () => showStats();
-    document.body.appendChild(b);
-  })();
-} catch (e) {}
+botonCabecera("stb", "📊", "Estadísticas", () => showStats());

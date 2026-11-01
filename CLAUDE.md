@@ -5,10 +5,12 @@ El propietario habla catalán: las explicaciones para él, en catalán y sencill
 
 ## Flujo de trabajo acordado con el propietario
 - Cuando pida un cambio, hazlo todo tú (código, pruebas, versión) y al final pídele solo permiso para subirlo a GitHub.
-- Netlify está conectado a este repositorio: al subir a `main`, la app se publica sola y los móviles reciben la actualización.
+- Publicado en **Cloudflare Pages** (igual que su otro juego, espineet/acuari), conectado a este repositorio con
+  «Build output directory» = `app`: al subir a `main`, la app se publica sola y los móviles reciben la actualización.
+  (Antes estaba en Netlify; se abandonó sin migrar partidas porque nadie había empezado a jugar.)
 
 ## Estructura
-- `app/` → lo que se publica (Netlify usa `publish = "app"` en `netlify.toml`). HTML + CSS + JS sin compilar, sin dependencias.
+- `app/` → lo que se publica (Cloudflare Pages publica esta carpeta; `app/_headers` controla la caché). HTML + CSS + JS sin compilar, sin dependencias.
   - `app/js/*.js`: scripts clásicos (no módulos) que comparten variables globales; **el orden de `<script>` en `index.html` importa**.
     Las funciones se llaman desde `onclick="..."` en el HTML generado, así que deben seguir siendo globales.
   - `app/img/`: dibujos del juego (no sustituir por emojis).

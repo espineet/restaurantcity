@@ -189,6 +189,22 @@ label.s {
 .stage {
   border-radius: 14px;
 }
+/* Botón «Abrir la comida / la cena» y «Día de descanso» (pestaña Local) */
+.fila-abrir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.big.abrir {
+  width: auto;
+  flex: 0 1 auto;
+  min-height: 42px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.25;
+}
 .ancho {
   width: 100%;
   margin-top: 8px;

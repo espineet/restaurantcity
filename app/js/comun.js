@@ -1,7 +1,7 @@
 /* comun.js — Utilidades de interfaz compartidas por todas las ventanas. */
 
 // Versión del juego (debe coincidir con la del service worker en sw.js)
-const VERSION = "13";
+const VERSION = "14";
 
 /* Botón ✕ para cerrar una ventana (.ov) por su id */
 const btnCerrar = (id) => `<button class="x" onclick="cerrarVentana('${id}')" aria-label="Cerrar">✕</button>`;

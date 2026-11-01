@@ -2,7 +2,7 @@
  * Guarda todo el juego en el móvil para poder jugar sin conexión.
  * Cada versión usa su propia caché; al activarse borra las antiguas.
  * La partida NO está aquí (está en localStorage) y nunca se toca. */
-const VERSION = "13";
+const VERSION = "14";
 const CACHE = "mi-restaurante-v" + VERSION;
 const ARCHIVOS = [
   "./",

@@ -136,6 +136,16 @@ function showCfg() {
   const bk = S.bk ? fechaCorta(S.bk) : "nunca";
   o.innerHTML = `<div class="box hoja">${btnCerrar("cf")}<h2>⚙️ Ajustes</h2>
  <h3>Sonido</h3>${sw("sfx", "🔊", "Efectos (monedas, campanilla…)")}${sw("mus", "🎵", "Música y ambiente de local")}
+ <h3>🌗 Pantalla</h3><div class="botones tema">${[
+   ["auto", "📱 Automática"],
+   ["claro", "☀️ Clara"],
+   ["oscuro", "🌙 Oscura"],
+ ]
+   .map(
+     ([t, l]) =>
+       `<button class="s interruptor ${(AU.cfg.tema || "auto") === t ? "on" : ""}" onclick="setTema('${t}')">${l}</button>`,
+   )
+   .join("")}</div><div class="mut sm">Automática: clara u oscura según el ajuste de tu móvil.</div>
  <h3>💾 Copia de seguridad</h3><div class="mut sm">Tu progreso se guarda solo en este móvil. Descarga una copia de vez en cuando para no perderlo nunca. Última copia: <b>${bk}</b>.</div>
  <div class="botones"><button class="s" onclick="cfExport()">📤 Guardar archivo</button><button class="s" onclick="cfCopy()">📋 Copiar código</button></div>
  <h3>📥 Cargar una partida</h3><div class="mut sm">Elige un archivo exportado o pega el código. Antes de reemplazar tu partida se guarda una copia automática.</div>
@@ -148,6 +158,12 @@ function showCfg() {
  <h3>Más</h3><div class="botones"><button class="s" onclick="tutOpen()">📖 Ver tutorial</button><button class="s" onclick="cerrarVentana('cf');document.getElementById('rs').style.display='flex'">🔄 Reiniciar partida</button></div>
  <div class="mut sm version">Mi Restaurante · versión ${VERSION}</div></div>`;
   o.style.display = "flex";
+}
+function setTema(t) {
+  AU.cfg.tema = t;
+  auSave();
+  aplicarTema(t);
+  showCfg();
 }
 const cfData = () => JSON.stringify({ game: "restaurante", v: 1, t: Date.now(), data: S });
 function cfHecho(msg) {

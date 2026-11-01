@@ -1,7 +1,7 @@
 /* comun.js — Utilidades de interfaz compartidas por todas las ventanas. */
 
 // Versión del juego (debe coincidir con la del service worker en sw.js)
-const VERSION = "14";
+const VERSION = "15";
 
 /* Botón ✕ para cerrar una ventana (.ov) por su id */
 const btnCerrar = (id) => `<button class="x" onclick="cerrarVentana('${id}')" aria-label="Cerrar">✕</button>`;
@@ -27,4 +27,16 @@ function botonCabecera(id, icono, titulo, fn) {
   b.onclick = fn;
   (document.getElementById("hbtn") || document.body).appendChild(b);
   return b;
+}
+
+/* Tema de la pantalla: "auto" (como el móvil), "claro" u "oscuro". Se guarda en restaurante_cfg (AU.cfg.tema). */
+function aplicarTema(t) {
+  const r = document.documentElement;
+  if (t === "claro" || t === "oscuro") {
+    r.dataset.theme = t === "claro" ? "light" : "dark";
+    r.style.colorScheme = t === "claro" ? "light" : "dark";
+  } else {
+    delete r.dataset.theme;
+    r.style.colorScheme = "";
+  }
 }

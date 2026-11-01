@@ -5,9 +5,9 @@ El propietario habla catalán: las explicaciones para él, en catalán y sencill
 
 ## Flujo de trabajo acordado con el propietario
 - Cuando pida un cambio, hazlo todo tú (código, pruebas, versión) y al final pídele solo permiso para subirlo a GitHub.
-- Publicado en **Cloudflare** (Workers con archivos estáticos), conectado a este repositorio: al subir a `main`,
-  la app se publica sola y los móviles reciben la actualización. `wrangler.jsonc` indica que se publica `app/`
-  (el nombre `restaurantcity` debe coincidir con el del proyecto en Cloudflare).
+- Publicado en **Cloudflare Pages** (igual que su otro juego, espineet/acuari), conectado a este repositorio: al subir
+  a `main`, la app se publica sola y los móviles reciben la actualización. `wrangler.toml` indica que se publica `app/`
+  (`pages_build_output_dir`). Probar en local: `npx wrangler@3 pages dev` (no subir `.wrangler/`).
   (Antes estaba en Netlify; se abandonó sin migrar partidas porque nadie había empezado a jugar.)
 
 ## Estructura

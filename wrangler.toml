@@ -1,0 +1,4 @@
+# Cloudflare Pages: publica la carpeta app/ (el juego). No hay que compilar nada.
+name = "restaurantcity"
+pages_build_output_dir = "./app"
+compatibility_date = "2025-10-01"

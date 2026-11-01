@@ -1,0 +1,9 @@
+// Cloudflare: publica el juego (la carpeta app/) como archivos estáticos. No hay que compilar nada.
+// El nombre debe coincidir con el del proyecto creado en Cloudflare.
+{
+  "name": "restaurantcity",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": "./app"
+  }
+}
